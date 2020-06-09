@@ -53,11 +53,11 @@ public class DayController{
         return dayService.findById(id);
     }
 
-    @GetMapping("/user")
+    @GetMapping("/user/{id}")
     Iterable<Day> findByUser(
-            @RequestParam("userId") Long userId)
+            @PathVariable Long id)
     {
-        return dayService.findByUserId(userId);
+        return dayService.findByUserId(id);
     }
 
     @GetMapping("/today")
@@ -70,10 +70,11 @@ public class DayController{
             if (day.checkDate().equals(date)){
                 return day;
             }
-
         }
-
-        throw new ValidationException("not found: " + days);
+        Day noResp = new Day();
+        return noResp;
+        //throw new ValidationException("not found");
     }
+
 }
 
